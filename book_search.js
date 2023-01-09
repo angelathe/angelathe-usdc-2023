@@ -43,7 +43,7 @@
                     "ISBN": book.ISBN,
                     "Page": line.Page,
                     "Line": line.Line
-                  });
+                });
             }
 
             lineTrim = line.Text.trim()
@@ -80,21 +80,21 @@
                 if (combine === searchTerm) {
                     result.Results.push(
                         {
-                        "ISBN": book.ISBN,
-                        "Page": line.Page,
-                        "Line": line.Line
+                            "ISBN": book.ISBN,
+                            "Page": line.Page,
+                            "Line": line.Line
                         }, 
                         {
-                        "ISBN": book.ISBN,
-                        "Page": book.Content.find(l => l.Page === nextPage).Page,
-                        "Line": book.Content.find(l => l.Line === nextLine).Line
+                            "ISBN": book.ISBN,
+                            "Page": book.Content.find(l => l.Page === nextPage).Page,
+                            "Line": book.Content.find(l => l.Line === nextLine).Line
                         }, 
                     );
                 }
             }
         }
     }
-    return result; 
+    return result;
 }
 
 /** Example input object. */
@@ -488,4 +488,25 @@ if (JSON.stringify(janeAustinWordBreakPageOut) === JSON.stringify(test9result)) 
     console.log("FAIL: Test 9. Results did not find hyphenated word break or produce correct match.");
     console.log("Expected:", janeAustinWordBreakPageOut);
     console.log("Received:", test9result);
+}
+
+/* Unit Test 10 - Escape slashes */
+const testOut = {
+    "SearchTerm": "Canadian's",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        }
+    ]
+}
+
+const test10result = findSearchTermInBooks("Canadian's", twentyLeaguesIn); 
+if (JSON.stringify(testOut) === JSON.stringify(test10result)) {
+    console.log("PASS: Test 10");
+} else {
+    console.log("FAIL: Test 10. Results did not produce correct the match(es).");
+    console.log("Expected:", testOut);
+    console.log("Received:", test10result);
 }
